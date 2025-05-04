@@ -1,0 +1,8 @@
+.idea
+node_modules
+src/lib/api
+src/routeTree.gen.ts
+**/build
+**/public
+pnpm-lock.yaml
+routeTree.gen.ts
