@@ -4,8 +4,8 @@ export {
   useBlocksRenderer
 } from "./blocks-renderer-provider.ui"
 export type {
-  RootNode,
-  Node,
+  BlocksContent,
+  BlocksContentNode,
   GetPropsFromNode,
   BlocksComponents,
   ModifiersComponents,

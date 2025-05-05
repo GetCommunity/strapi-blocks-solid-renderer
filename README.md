@@ -1,5 +1,7 @@
 # Strapi Blocks SolidJS Renderer
 
+This is a SolidJS implementation of the [Strapi Blocks Renderer](https://github.com/strapi/blocks-react-renderer).
+
 Easily render the content of Strapi's new Blocks rich text editor in your SolidJS frontend.
 
 ## Installation

@@ -83,7 +83,7 @@ interface ImageBlockNode {
   children: [{ type: "text"; text: "" }]
 }
 
-export type RootNode =
+export type BlocksContent =
   | ParagraphBlockNode
   | QuoteBlockNode
   | CodeBlockNode
@@ -91,7 +91,7 @@ export type RootNode =
   | ListBlockNode
   | ImageBlockNode
 
-export type Node = RootNode | NonTextInlineNode
+export type BlocksContentNode = BlocksContent | NonTextInlineNode
 
 export type GetPropsFromNode<T> = Omit<T, "type" | "children"> & {
   children?: JSX.Element
@@ -99,7 +99,9 @@ export type GetPropsFromNode<T> = Omit<T, "type" | "children"> & {
 }
 
 export type BlocksComponents = {
-  [K in Node["type"]]: Component<GetPropsFromNode<Extract<Node, { type: K }>>>
+  [K in BlocksContentNode["type"]]: Component<
+    GetPropsFromNode<Extract<BlocksContentNode, { type: K }>>
+  >
 }
 
 export type ModifiersComponents = {
