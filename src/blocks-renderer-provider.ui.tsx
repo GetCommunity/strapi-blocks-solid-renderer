@@ -40,7 +40,7 @@ const defaultComponents: BlocksRendererState = {
         <Match when={props.format === "ordered"}>
           <ol>{props.children}</ol>
         </Match>
-        <Match when={props.format === "ordered"}>
+        <Match when={props.format === "unordered"}>
           <ul>{props.children}</ul>
         </Match>
       </Switch>

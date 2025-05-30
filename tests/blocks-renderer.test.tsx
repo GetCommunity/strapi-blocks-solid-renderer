@@ -41,6 +41,89 @@ describe("BlocksRenderer", () => {
     )
   })
 
+  it("renders unordered and ordered lists", () => {
+    render(() => (
+      <BlocksRenderer
+        content={[
+          {
+            type: "list",
+            format: "unordered",
+            children: [
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Unordered List Item 1",
+                    type: "text"
+                  }
+                ]
+              },
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Unordered List Item 2",
+                    type: "text"
+                  }
+                ]
+              },
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Unordered List Item 3",
+                    type: "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "list",
+            format: "ordered",
+            children: [
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Ordered List Item 1",
+                    type: "text"
+                  }
+                ]
+              },
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Ordered List Item 2",
+                    type: "text"
+                  }
+                ]
+              },
+              {
+                type: "list-item",
+                children: [
+                  {
+                    text: "Ordered List Item 3",
+                    type: "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]}
+      />
+    ))
+
+    expect(screen.getByText("Unordered List Item 1")).toBeInstanceOf(HTMLLIElement)
+    expect(screen.getByText("Unordered List Item 2")).toBeInstanceOf(HTMLLIElement)
+    expect(screen.getByText("Unordered List Item 3")).toBeInstanceOf(HTMLLIElement)
+
+    expect(screen.getByText("Ordered List Item 1")).toBeInstanceOf(HTMLLIElement)
+    expect(screen.getByText("Ordered List Item 2")).toBeInstanceOf(HTMLLIElement)
+    expect(screen.getByText("Ordered List Item 3")).toBeInstanceOf(HTMLLIElement)
+  })
+
   it("uses custom components when provided", () => {
     render(() => (
       <BlocksRenderer
