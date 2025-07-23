@@ -13,6 +13,10 @@ yarn add @getcommunity/strapi-blocks-solid-renderer solid-js
 ```
 
 ```sh
+pnpm add @getcommunity/strapi-blocks-solid-renderer solid-js
+```
+
+```sh
 npm install @getcommunity/strapi-blocks-solid-renderer solid-js
 ```
 
