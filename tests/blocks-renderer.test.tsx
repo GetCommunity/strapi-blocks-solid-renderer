@@ -1,7 +1,7 @@
 // FILE: blocks-renderer.test.tsx
 import { render, screen } from "@solidjs/testing-library"
-import { describe, it, expect, vi } from "vitest"
 import { isServer } from "solid-js/web"
+import { describe, expect, it, vi } from "vitest"
 
 console.log("isServer", isServer) // should log: false
 

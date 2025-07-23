@@ -1,29 +1,26 @@
 {
-  "include": ["**/*.ts", "**/*.tsx"],
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@getcommunity/config-typescript/solidjs-lib.json",
+  "include": [
+    "./tests/**/*.ts",
+    "./tests/**/*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "vitest.setup.ts",
+    "tsup.config.ts",
+    "eslint.config.mjs",
+    ".prettierrc.mjs"
+  ],
   "compilerOptions": {
-    "strict": true,
-    "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "dist/types",
     "outDir": "dist",
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "isolatedModules": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
     "target": "ES2022",
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"]
-    },
-    "types": ["vite/client", "@testing-library/jest-dom"],
     "noEmit": true
   },
-  "exclude": ["node_modules", "dist", ".vscode"]
+  "exclude": ["dist", "node_modules", ".vscode"]
 }

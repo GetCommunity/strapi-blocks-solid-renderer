@@ -1,6 +1,7 @@
 import { createContext, Match, mergeProps, Switch, useContext } from "solid-js"
-import { createStore } from "solid-js/store"
 import { type JSX } from "solid-js/jsx-runtime"
+import { createStore } from "solid-js/store"
+import { Dynamic } from "solid-js/web"
 import type {
   BlocksComponents,
   BlocksRendererActions,
@@ -9,7 +10,6 @@ import type {
   BlocksRendererState,
   ModifiersComponents
 } from "./blocks-renderer-provider.types"
-import { Dynamic } from "solid-js/web"
 
 // ------------------------------------
 // Default Components
@@ -72,12 +72,14 @@ const defaultComponents: BlocksRendererState = {
 const BlocksRendererContext = createContext<BlocksRendererContextState>()
 
 export function BlocksRendererProvider(props: BlocksRendererProviderProps) {
-  const blocks = { ...defaultComponents.blocks, ...props.blocks }
-  const modifiers = { ...defaultComponents.modifiers, ...props.modifiers }
+  const blocks = () => ({ ...defaultComponents.blocks, ...props.blocks })
+  const modifiers = () => ({ ...defaultComponents.modifiers, ...props.modifiers })
 
   const [state] = createStore<BlocksRendererState>({
-    blocks,
-    modifiers,
+    // eslint-disable-next-line solid/reactivity
+    blocks: blocks(),
+    // eslint-disable-next-line solid/reactivity
+    modifiers: modifiers(),
     missingBlockTypes: [],
     missingModifierTypes: []
   })

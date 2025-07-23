@@ -1,18 +1,21 @@
-import { For, type JSX } from "solid-js"
+import { createEffect, For, Match, Switch, type JSX } from "solid-js"
 import { Dynamic } from "solid-js/web"
 
 import { useBlocksRenderer } from "./blocks-renderer-provider.ui"
 import { Text } from "./text"
 
-import type { Node, GetPropsFromNode } from "./blocks-renderer-provider.types"
+import type {
+  BlocksContentNode,
+  GetPropsFromNode
+} from "./blocks-renderer-provider.types"
 
 export interface BlockProps {
-  content: Node
+  content: BlocksContentNode
 }
 
 const voidTypes = ["image"]
 
-function augmentProps(content: Node) {
+function augmentProps(content: BlocksContentNode) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { children: childrenNodes, type, ...props } = content as any
 
@@ -37,48 +40,54 @@ function augmentProps(content: Node) {
 
 export function Block(props: BlockProps) {
   const [state] = useBlocksRenderer()
-  const BlockComponent = state.blocks[props.content.type] as (
-    props: GetPropsFromNode<Node>
-  ) => JSX.Element
+  const BlockComponent = () =>
+    state.blocks[props.content.type] as (props: GetPropsFromNode<Node>) => JSX.Element
 
-  if (!BlockComponent) {
-    if (!state.missingBlockTypes.includes(props.content.type)) {
-      console.warn(
-        `[@strapi/block-solid-renderer] No component for block type "${props.content.type}"`
-      )
-      state.missingBlockTypes.push(props.content.type)
+  createEffect(() => {
+    if (!BlockComponent()) {
+      if (!state.missingBlockTypes.includes(props.content.type)) {
+        console.warn(
+          `[@strapi/block-solid-renderer] No component for block type "${props.content.type}"`
+        )
+        state.missingBlockTypes.push(props.content.type)
+      }
+      return null
     }
-    return null
-  }
+  })
 
-  if (voidTypes.includes(props.content.type)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return <Dynamic component={BlockComponent} {...(props.content as any)} />
-  }
-
-  if (
-    props.content.type === "paragraph" &&
-    props.content.children.length === 1 &&
-    props.content.children[0].type === "text" &&
-    props.content.children[0].text === ""
-  ) {
-    return <br />
-  }
-
-  const augmentedProps = augmentProps(props.content)
+  const augmentedProps = () => augmentProps(props.content)
 
   return (
-    <Dynamic component={BlockComponent} {...augmentedProps}>
-      <For each={props.content.children}>
-        {(child) => {
-          if (child.type === "text") {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { type: _type, ...childProps } = child
-            return <Text {...childProps} />
+    <>
+      <Switch>
+        <Match when={voidTypes.includes(props.content.type)}>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          <Dynamic component={BlockComponent()} {...(props.content as any)} />
+        </Match>
+        <Match
+          when={
+            props.content.type === "paragraph" &&
+            props.content.children.length === 1 &&
+            props.content.children[0].type === "text" &&
+            props.content.children[0].text === ""
           }
-          return <Block content={child as Node} />
-        }}
-      </For>
-    </Dynamic>
+        >
+          <br />
+        </Match>
+        <Match when={BlockComponent()}>
+          <Dynamic component={BlockComponent()} {...augmentedProps()}>
+            <For each={props.content.children}>
+              {(child) => {
+                if (child.type === "text") {
+                  const { type: _type, ...childProps } = child
+                  return <Text {...childProps} />
+                }
+                return <Block content={child as BlocksContentNode} />
+              }}
+            </For>
+          </Dynamic>
+        </Match>
+      </Switch>
+    </>
   )
 }

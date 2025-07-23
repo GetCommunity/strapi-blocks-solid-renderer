@@ -1,4 +1,4 @@
-import type { ParentProps, Component } from "solid-js"
+import type { Component, ParentProps } from "solid-js"
 import type { JSX } from "solid-js/jsx-runtime"
 
 // ------------------------------------
