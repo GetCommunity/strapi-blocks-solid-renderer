@@ -1,0 +1,57 @@
+name: Build, Version & Publish
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [production]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup Node.js & Auth
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@joeygrable94"
+          always-auth: true
+
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Install & Build
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: Bump patch version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version patch -m "chore(release): v%s"
+
+      - name: Push version commit & tag
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: production
+
+      - name: Publish to npm
+        run: npm publish --access public
