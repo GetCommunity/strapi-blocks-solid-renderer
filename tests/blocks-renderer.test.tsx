@@ -1,9 +1,6 @@
 // FILE: blocks-renderer.test.tsx
 import { render, screen } from "@solidjs/testing-library"
-import { isServer } from "solid-js/web"
 import { describe, expect, it, vi } from "vitest"
-
-console.log("isServer", isServer) // should log: false
 
 import { BlocksRenderer } from "../src/blocks-renderer"
 
@@ -146,7 +143,6 @@ describe("BlocksRenderer", () => {
     )
 
     const boldTags = screen.getAllByTestId("customBold")
-    console.log("boldTags", boldTags)
     expect(boldTags).toHaveLength(2)
     expect(boldTags[0]).toHaveTextContent("with bold text")
     expect(boldTags[1]).toHaveTextContent("and bold underlines")
