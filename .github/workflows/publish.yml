@@ -15,23 +15,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
       - name: Setup Node.js & Auth
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
           scope: "@joeygrable94"
-          always-auth: true
 
       - name: Install PNPM
         run: npm install -g pnpm
@@ -45,7 +44,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git stash --include-untracked
           npm version patch -m "chore(release): v%s"
+          git stash pop || true
 
       - name: Push version commit & tag
         uses: ad-m/github-push-action@v1.0.0

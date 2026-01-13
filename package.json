@@ -36,25 +36,25 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
-    "@eslint/js": "^9.39.1",
-    "@getcommunity/config-prettier": "^0.0.12",
-    "@getcommunity/config-typescript": "^0.0.12",
+    "@eslint/js": "^9.39.2",
+    "@getcommunity/config-prettier": "^0.0.13",
+    "@getcommunity/config-typescript": "^0.0.13",
     "@solidjs/testing-library": "^0.8.10",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.16.5",
-    "@typescript-eslint/eslint-plugin": "^8.48.1",
-    "@typescript-eslint/parser": "^8.48.1",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
     "esbuild-plugin-solid": "^0.6.0",
     "eslint-plugin-solid": "^0.14.5",
-    "jsdom": "^27.2.0",
-    "prettier": "^3.7.3",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.7.4",
     "solid-js": "^1.9.10",
     "tsup": "^8.5.1",
     "typescript": "^5.8.3",
     "vite": "^7.1.11",
     "vite-plugin-solid": "^2.11.10",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.17"
   },
   "peerDependencies": {
     "solid-js": "^1.9.6"
