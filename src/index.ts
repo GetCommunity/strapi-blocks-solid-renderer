@@ -1,13 +1,5 @@
 export { BlocksRenderer, type BlocksRendererProps } from "./blocks-renderer"
-export type {
-  BlocksComponents,
-  BlocksContent,
-  BlocksContentNode,
-  GetPropsFromNode,
-  Modifier,
-  ModifiersComponents,
-  TextInlineNode
-} from "./blocks-renderer-provider.types"
+export * from "./blocks-renderer-provider.types"
 export {
   BlocksRendererProvider,
   useBlocksRenderer
