@@ -1,5 +1,5 @@
 import { solidPlugin } from "esbuild-plugin-solid"
-import { type Options, defineConfig } from "tsup"
+import { type Options, defineConfig } from "tsdown"
 
 // export default defineConfig({
 //   entry: ["src/index.ts"],
@@ -22,6 +22,7 @@ function generateConfig(jsx: boolean): Options {
     treeshake: { preset: "smallest" },
     sourcemap: true,
     replaceNodeEnv: true,
+    // @ts-ignore
     esbuildOptions(options) {
       if (jsx) {
         options.jsx = "preserve"
@@ -33,7 +34,7 @@ function generateConfig(jsx: boolean): Options {
       return jsx ? { js: ".jsx" } : {}
     },
     // @ts-ignore
-    esbuildPlugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
+    plugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
   }
 }
 
