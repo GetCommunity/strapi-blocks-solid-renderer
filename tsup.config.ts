@@ -1,5 +1,5 @@
 import { solidPlugin } from "esbuild-plugin-solid"
-import { type Options, defineConfig } from "tsdown"
+import { type Options, defineConfig } from "tsup"
 
 // export default defineConfig({
 //   entry: ["src/index.ts"],

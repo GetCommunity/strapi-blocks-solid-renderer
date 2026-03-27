@@ -1,6 +1,6 @@
 {
   "name": "@getcommunity/strapi-blocks-solid-renderer",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "",
   "bugs": {
     "url": "https://github.com/GetCommunity/strapi-blocks-solid-renderer/issues"
@@ -31,7 +31,7 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules dist",
     "test": "vitest --run",
-    "build": "tsdown",
+    "build": "tsup",
     "format": "prettier --write ./src/**/*",
     "lint": "eslint ./src/**/*"
   },
@@ -52,7 +52,7 @@
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "solid-js": "^1.9.12",
-    "tsdown": "^0.21.6",
+    "tsup": "^8.5.1",
     "typescript": "^5.8.3",
     "vite": "^7.3.1",
     "vite-plugin-solid": "^2.11.11",
