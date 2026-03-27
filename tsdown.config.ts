@@ -1,5 +1,6 @@
 import { solidPlugin } from "esbuild-plugin-solid"
-import { type Options, defineConfig } from "tsdown"
+import type { UserConfig } from "tsdown"
+import { defineConfig } from "tsdown"
 
 // export default defineConfig({
 //   entry: ["src/index.ts"],
@@ -10,7 +11,7 @@ import { type Options, defineConfig } from "tsdown"
 //   treeshake: true
 // })
 
-function generateConfig(jsx: boolean): Options {
+function generateConfig(jsx: boolean): UserConfig {
   return {
     target: "esnext",
     platform: "browser",
@@ -19,21 +20,8 @@ function generateConfig(jsx: boolean): Options {
     dts: !jsx,
     entry: ["src/index.ts"],
     outDir: "dist/",
-    treeshake: { preset: "smallest" },
+    treeshake: true,
     sourcemap: true,
-    replaceNodeEnv: true,
-    // @ts-ignore
-    esbuildOptions(options) {
-      if (jsx) {
-        options.jsx = "preserve"
-      }
-      options.chunkNames = "[name]/[hash]"
-      options.drop = ["console", "debugger"]
-    },
-    outExtension() {
-      return jsx ? { js: ".jsx" } : {}
-    },
-    // @ts-ignore
     plugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
   }
 }
