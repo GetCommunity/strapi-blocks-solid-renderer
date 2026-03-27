@@ -1,5 +1,6 @@
+import { solidPlugin } from "esbuild-plugin-solid"
+import type { UserConfig } from "tsdown"
 import { defineConfig } from "tsdown"
-import solid from "unplugin-solid/rolldown"
 
 // export default defineConfig({
 //   entry: ["src/index.ts"],
@@ -10,9 +11,19 @@ import solid from "unplugin-solid/rolldown"
 //   treeshake: true
 // })
 
-export default defineConfig({
-  entry: ["./src/index.ts"],
-  platform: "neutral",
-  dts: true,
-  plugins: [solid()]
-})
+function generateConfig(jsx: boolean): UserConfig {
+  return {
+    target: "esnext",
+    platform: "browser",
+    format: "esm",
+    clean: true,
+    dts: !jsx,
+    entry: ["src/index.ts"],
+    outDir: "dist/",
+    treeshake: true,
+    sourcemap: true,
+    plugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
+  }
+}
+
+export default defineConfig([generateConfig(false), generateConfig(true)])
