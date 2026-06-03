@@ -43,7 +43,7 @@ jobs:
           git stash pop || true
 
       - name: Push version commit & tag
-        uses: ad-m/github-push-action@v1.0.0
+        uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: production

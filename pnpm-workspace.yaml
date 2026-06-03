@@ -1,0 +1,6 @@
+packages:
+  - .
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@getcommunity/config-prettier"
+  - "@getcommunity/config-typescript"
