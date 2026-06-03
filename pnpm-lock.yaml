@@ -18,8 +18,8 @@ importers:
         specifier: ^0.1.5
         version: 0.1.5(prettier-plugin-organize-imports@4.3.0(prettier@3.8.3)(typescript@5.9.3))(prettier-plugin-tailwindcss@0.6.14(prettier-plugin-organize-imports@4.3.0(prettier@3.8.3)(typescript@5.9.3))(prettier@3.8.3))(prettier@3.8.3)
       '@getcommunity/config-typescript':
-        specifier: ^0.0.21
-        version: 0.0.21(@types/node@24.12.0)(typescript@5.9.3)
+        specifier: ^0.0.24
+        version: 0.0.24(@types/node@24.12.0)(typescript@5.9.3)
       '@solidjs/testing-library':
         specifier: ^0.8.10
         version: 0.8.10(solid-js@1.9.13)
@@ -554,8 +554,8 @@ packages:
       prettier-plugin-organize-imports: ^4.3.0
       prettier-plugin-tailwindcss: ^0.8.0
 
-  '@getcommunity/config-typescript@0.0.21':
-    resolution: {integrity: sha512-ExsYH5s9Qsp1P+1mGN0LyKcZzRyKdZ8gAy9CrYlPO8pfNrGRD6xTsVdwf8GJATimJAXUA/zKnMQKfzIERJjaWA==}
+  '@getcommunity/config-typescript@0.0.24':
+    resolution: {integrity: sha512-6MVqXohEzyvgv6+U6j4q7oCd7N+4GzM0t2TKjq8NNE7AS3RSV3JE78QavOiDiDZ1MjsKaqDqdJm0VH99pU7k/Q==}
     peerDependencies:
       '@types/node': ^24.12.0
       typescript: ^5.0.0
@@ -2528,7 +2528,7 @@ snapshots:
       prettier-plugin-organize-imports: 4.3.0(prettier@3.8.3)(typescript@5.9.3)
       prettier-plugin-tailwindcss: 0.6.14(prettier-plugin-organize-imports@4.3.0(prettier@3.8.3)(typescript@5.9.3))(prettier@3.8.3)
 
-  '@getcommunity/config-typescript@0.0.21(@types/node@24.12.0)(typescript@5.9.3)':
+  '@getcommunity/config-typescript@0.0.24(@types/node@24.12.0)(typescript@5.9.3)':
     dependencies:
       '@types/node': 24.12.0
       typescript: 5.9.3
