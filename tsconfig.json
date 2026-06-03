@@ -20,7 +20,8 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "target": "ES2022",
-    "noEmit": true
+    "noEmit": true,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["dist", "node_modules", ".vscode"]
 }
