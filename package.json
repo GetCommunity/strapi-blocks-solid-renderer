@@ -34,30 +34,30 @@
     "build": "tsup",
     "format": "prettier --write ./src/**/*",
     "lint": "eslint ./src/**/*",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^10.0.1",
-    "@getcommunity/config-prettier": "^0.1.5",
-    "@getcommunity/config-typescript": "^0.0.24",
+    "@getcommunity/config-prettier": "^0.1.6",
+    "@getcommunity/config-typescript": "^0.0.25",
     "@solidjs/testing-library": "^0.8.10",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^25.9.1",
-    "@typescript-eslint/eslint-plugin": "^8.60.1",
-    "@typescript-eslint/parser": "^8.60.1",
+    "@types/node": "^26.1.1",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
     "esbuild-plugin-solid": "^0.6.0",
     "eslint-plugin-solid": "^0.14.5",
     "jsdom": "^29.1.1",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "solid-js": "^1.9.13",
+    "solid-js": "^1.9.14",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-solid": "^2.11.12",
-    "vitest": "^4.1.8"
+    "vite": "^8.1.5",
+    "vite-plugin-solid": "^2.11.13",
+    "vitest": "^4.1.10"
   },
   "peerDependencies": {
     "solid-js": "^1.9.13"
