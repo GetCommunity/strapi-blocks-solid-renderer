@@ -1,5 +1,5 @@
 import { Dynamic } from "@solidjs/web"
-import { For, Show } from "solid-js"
+import { createMemo, For, Show } from "solid-js"
 
 import { useBlocksRenderer } from "./blocks-renderer-provider.ui"
 
@@ -37,29 +37,28 @@ function replaceLineBreaks(text: string) {
 
 export function Text(props: TextInlineProps) {
   const [state, actions] = useBlocksRenderer()
-  const modifierComponents = state.modifiers
-  const text = () => props.text
 
-  const modifierNames = () =>
+  const modifierNames = createMemo(() =>
     Object.keys(props).filter(
       (k): k is Modifier => k !== "text" && !!props[k as Modifier]
     )
-
-  return (
-    <>
-      {modifierNames().reduceRight((children, modifierName) => {
-        const ModifierComponent = () => modifierComponents[modifierName]
-        if (!ModifierComponent()) {
-          if (!state.missingModifierTypes.includes(modifierName)) {
-            console.warn(
-              `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`
-            )
-            actions.markModifierTypeMissing(modifierName)
-          }
-          return children
-        }
-        return <Dynamic component={ModifierComponent()}>{children}</Dynamic>
-      }, replaceLineBreaks(text()))}
-    </>
   )
+
+  const content = createMemo(() =>
+    modifierNames().reduceRight((children, modifierName) => {
+      const ModifierComponent = () => state.modifiers[modifierName]
+      if (!ModifierComponent()) {
+        if (!state.missingModifierTypes.includes(modifierName)) {
+          console.warn(
+            `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`
+          )
+          actions.markModifierTypeMissing(modifierName)
+        }
+        return children
+      }
+      return <Dynamic component={ModifierComponent()}>{children}</Dynamic>
+    }, replaceLineBreaks(props.text))
+  )
+
+  return <>{content()}</>
 }

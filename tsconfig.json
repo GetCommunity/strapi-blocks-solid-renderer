@@ -1,5 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@getcommunity/config-typescript/solidjs-lib.json",
   "include": [
     "./tests/**/*.ts",
     "./tests/**/*.tsx",
@@ -13,51 +14,14 @@
     ".prettierrc.mjs"
   ],
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "jsx": "preserve",
-    "jsxImportSource": "@solidjs/web",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "newLine": "LF",
-    "allowJs": false,
-    "sourceMap": true,
-    "isolatedModules": true,
-    "types": [
-      "solid-js",
-      "vite/client",
-      "node",
-      "@testing-library/jest-dom",
-      "vitest/globals"
-    ],
     "declaration": true,
     "declarationDir": "dist/types",
     "outDir": "dist",
     "skipLibCheck": true,
     "strictNullChecks": true,
+    "target": "ES2022",
     "noEmit": true,
-    "ignoreDeprecations": "6.0",
-    "strict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": false,
-    "resolveJsonModule": true,
-    "paths": {
-      "@/*": ["./*"],
-      "~/*": ["./src/*"]
-    }
+    "ignoreDeprecations": "6.0"
   },
-  "exclude": [
-    "node_modules/",
-    "build/",
-    "dist/",
-    "scripts/",
-    "public/",
-    ".wrangler/",
-    ".vinxi/",
-    ".vercel/",
-    ".tmp/",
-    ".vscode"
-  ]
+  "exclude": ["dist", "node_modules", ".vscode"]
 }

@@ -39,6 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@getcommunity/config-prettier": "^0.1.6",
+    "@getcommunity/config-typescript": "^0.0.26-next.0",
     "@solidjs/testing-library": "1.0.0-beta.3",
     "@solidjs/vite-plugin": "3.0.0-next.42",
     "@solidjs/web": "2.0.0-rc.7",
