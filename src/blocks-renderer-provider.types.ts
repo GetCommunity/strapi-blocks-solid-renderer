@@ -1,5 +1,5 @@
+import type { JSX } from "@solidjs/web"
 import type { Component, ParentProps } from "solid-js"
-import type { JSX } from "solid-js/jsx-runtime"
 
 // ------------------------------------
 // Modifier and Block Definitions
@@ -123,8 +123,10 @@ export interface BlocksRendererState {
   missingModifierTypes: string[]
 }
 
-// eslint-disable-next-line
-export interface BlocksRendererActions {}
+export interface BlocksRendererActions {
+  markBlockTypeMissing: (type: string) => void
+  markModifierTypeMissing: (type: string) => void
+}
 
 export type BlocksRendererContextState = [
   state: BlocksRendererState,

@@ -1,15 +1,6 @@
 import { solidPlugin } from "esbuild-plugin-solid"
 import { type Options, defineConfig } from "tsup"
 
-// export default defineConfig({
-//   entry: ["src/index.ts"],
-//   format: ["esm", "cjs"],
-//   dts: true,
-//   sourcemap: true,
-//   clean: true,
-//   treeshake: true
-// })
-
 function generateConfig(jsx: boolean): Options {
   return {
     target: "esnext",
@@ -22,10 +13,10 @@ function generateConfig(jsx: boolean): Options {
     treeshake: { preset: "smallest" },
     sourcemap: true,
     replaceNodeEnv: true,
-    // @ts-ignore
     esbuildOptions(options) {
       if (jsx) {
         options.jsx = "preserve"
+        options.jsxImportSource = "@solidjs/web"
       }
       options.chunkNames = "[name]/[hash]"
       options.drop = ["console", "debugger"]
@@ -33,8 +24,10 @@ function generateConfig(jsx: boolean): Options {
     outExtension() {
       return jsx ? { js: ".jsx" } : {}
     },
-    // @ts-ignore
-    plugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
+    // NOTE: this must be `esbuildPlugins`, not `plugins` (tsup's own plugin
+    // hook system) — the latter is silently ignored, which previously left
+    // the "dom" build un-transformed by Solid's babel preset entirely.
+    esbuildPlugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
   }
 }
 

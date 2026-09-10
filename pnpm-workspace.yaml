@@ -5,4 +5,8 @@ allowBuilds:
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@getcommunity/config-prettier"
-  - "@getcommunity/config-typescript"
+  - "@solidjs/vite-plugin@3.0.0-next.42"
+overrides:
+  # esbuild-plugin-solid still depends on babel-preset-solid@^1.x; force the
+  # Solid 2.0 preset so the "dom" build compiles against @solidjs/web.
+  babel-preset-solid: 2.0.0-rc.2

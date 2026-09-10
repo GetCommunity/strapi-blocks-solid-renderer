@@ -1,7 +1,14 @@
-import { createContext, Match, mergeProps, Switch, useContext } from "solid-js"
-import { type JSX } from "solid-js/jsx-runtime"
-import { createStore } from "solid-js/store"
-import { Dynamic } from "solid-js/web"
+import type { JSX } from "@solidjs/web"
+import { Dynamic } from "@solidjs/web"
+import {
+  createContext,
+  createStore,
+  Match,
+  merge,
+  Switch,
+  untrack,
+  useContext
+} from "solid-js"
 import type {
   BlocksComponents,
   BlocksRendererActions,
@@ -25,7 +32,7 @@ const defaultComponents: BlocksRendererState = {
       </pre>
     ),
     heading: (props) => {
-      const hProps = mergeProps(
+      const hProps = merge(
         {
           level: 1
         },
@@ -72,26 +79,33 @@ const defaultComponents: BlocksRendererState = {
 const BlocksRendererContext = createContext<BlocksRendererContextState>()
 
 export function BlocksRendererProvider(props: BlocksRendererProviderProps) {
-  const blocks = () => ({ ...defaultComponents.blocks, ...props.blocks })
-  const modifiers = () => ({ ...defaultComponents.modifiers, ...props.modifiers })
-
-  const [state] = createStore<BlocksRendererState>({
-    // eslint-disable-next-line solid/reactivity
-    blocks: blocks(),
-    // eslint-disable-next-line solid/reactivity
-    modifiers: modifiers(),
+  // `props.blocks`/`props.modifiers` are only ever read here, once, to seed
+  // the store's initial value — untrack() marks that intentionally, since
+  // reading props at the top of a component body is otherwise flagged.
+  const [state, setState] = createStore<BlocksRendererState>({
+    blocks: untrack(() => ({ ...defaultComponents.blocks, ...props.blocks })),
+    modifiers: untrack(() => ({ ...defaultComponents.modifiers, ...props.modifiers })),
     missingBlockTypes: [],
     missingModifierTypes: []
   })
 
-  const actions: BlocksRendererActions = {}
+  const actions: BlocksRendererActions = {
+    markBlockTypeMissing(type) {
+      setState((s) => {
+        if (!s.missingBlockTypes.includes(type)) s.missingBlockTypes.push(type)
+      })
+    },
+    markModifierTypeMissing(type) {
+      setState((s) => {
+        if (!s.missingModifierTypes.includes(type)) s.missingModifierTypes.push(type)
+      })
+    }
+  }
 
   const contextValue: BlocksRendererContextState = [state, actions]
 
   return (
-    <BlocksRendererContext.Provider value={contextValue}>
-      {props.children}
-    </BlocksRendererContext.Provider>
+    <BlocksRendererContext value={contextValue}>{props.children}</BlocksRendererContext>
   )
 }
 

@@ -9,16 +9,19 @@ Easily render the content of Strapi's new Blocks rich text editor in your SolidJ
 Install the Blocks renderer and its peer dependencies:
 
 ```sh
-yarn add @getcommunity/strapi-blocks-solid-renderer solid-js
+yarn add @getcommunity/strapi-blocks-solid-renderer solid-js @solidjs/web
 ```
 
 ```sh
-pnpm add @getcommunity/strapi-blocks-solid-renderer solid-js
+pnpm add @getcommunity/strapi-blocks-solid-renderer solid-js @solidjs/web
 ```
 
 ```sh
-npm install @getcommunity/strapi-blocks-solid-renderer solid-js
+npm install @getcommunity/strapi-blocks-solid-renderer solid-js @solidjs/web
 ```
+
+> Targets Solid 2.0 (currently `2.0.0-rc.7`). `@solidjs/web` is Solid's DOM
+> renderer package in 2.0 and must be installed alongside `solid-js`.
 
 ## Basic usage
 
@@ -28,7 +31,7 @@ After fetching your Strapi content, you can use the BlocksRenderer component to 
 import { BlocksRenderer, type BlocksContent } from '@getcommunity/strapi-blocks-solid-renderer';
 
 // Content should come from your Strapi API
-const content: BlocksContent = [
+const content: BlocksContent[] = [
   {
     type: 'paragraph',
     children: [{ type: 'text', text: 'A simple paragraph' }],
@@ -78,32 +81,32 @@ const App = () => {
       content={content}
       blocks={{
         // You can use the default components to set class names...
-        paragraph: ({ children }) => <p className="text-neutral900 max-w-prose">{children}</p>,
+        paragraph: (props) => <p class="text-neutral900 max-w-prose">{props.children}</p>,
         // ...or point to a design system
-        heading: ({ children, level }) => {
-          switch (level) {
+        heading: (props) => {
+          switch (props.level) {
             case 1:
-              return <Typography variant="h1">{children}</Typography>
+              return <Typography variant="h1">{props.children}</Typography>
             case 2:
-              return <Typography variant="h2">{children}</Typography>
+              return <Typography variant="h2">{props.children}</Typography>
             case 3:
-              return <Typography variant="h3">{children}</Typography>
+              return <Typography variant="h3">{props.children}</Typography>
             case 4:
-              return <Typography variant="h4">{children}</Typography>
+              return <Typography variant="h4">{props.children}</Typography>
             case 5:
-              return <Typography variant="h5">{children}</Typography>
+              return <Typography variant="h5">{props.children}</Typography>
             case 6:
-              return <Typography variant="h6">{children}</Typography>
+              return <Typography variant="h6">{props.children}</Typography>
             default:
-              return <Typography variant="h1">{children}</Typography>
+              return <Typography variant="h1">{props.children}</Typography>
           }
         },
         // For links, you may want to use the component from your router or framework
-        link: ({ children, url }) => <Link to={url}>{children}</Link>,
+        link: (props) => <Link to={props.url}>{props.children}</Link>,
       }}
       modifiers={{
-        bold: ({ children }) => <strong>{children}</strong>,
-        italic: ({ children }) => <span className="italic">{children}</span>,
+        bold: (props) => <strong>{props.children}</strong>,
+        italic: (props) => <span class="italic">{props.children}</span>,
       }}
     />
   );

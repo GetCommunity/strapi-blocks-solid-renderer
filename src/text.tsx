@@ -1,5 +1,5 @@
+import { Dynamic } from "@solidjs/web"
 import { For, Show } from "solid-js"
-import { Dynamic } from "solid-js/web"
 
 import { useBlocksRenderer } from "./blocks-renderer-provider.ui"
 
@@ -36,7 +36,7 @@ function replaceLineBreaks(text: string) {
 }
 
 export function Text(props: TextInlineProps) {
-  const [state] = useBlocksRenderer()
+  const [state, actions] = useBlocksRenderer()
   const modifierComponents = state.modifiers
   const text = () => props.text
 
@@ -45,19 +45,16 @@ export function Text(props: TextInlineProps) {
       (k): k is Modifier => k !== "text" && !!props[k as Modifier]
     )
 
-  // Use a Set to track warnings without mutating Solid Store directly
-  const seenWarnings = new Set<string>()
-
   return (
     <>
       {modifierNames().reduceRight((children, modifierName) => {
         const ModifierComponent = () => modifierComponents[modifierName]
         if (!ModifierComponent()) {
-          if (!seenWarnings.has(modifierName)) {
+          if (!state.missingModifierTypes.includes(modifierName)) {
             console.warn(
               `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`
             )
-            seenWarnings.add(modifierName)
+            actions.markModifierTypeMissing(modifierName)
           }
           return children
         }

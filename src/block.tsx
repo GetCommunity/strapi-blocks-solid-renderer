@@ -1,5 +1,6 @@
-import { createEffect, For, Match, Switch, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import type { JSX } from "@solidjs/web"
+import { Dynamic } from "@solidjs/web"
+import { For, Match, onSettled, Switch } from "solid-js"
 
 import { useBlocksRenderer } from "./blocks-renderer-provider.ui"
 import { Text } from "./text"
@@ -39,19 +40,16 @@ function augmentProps(content: BlocksContentNode) {
 }
 
 export function Block(props: BlockProps) {
-  const [state] = useBlocksRenderer()
+  const [state, actions] = useBlocksRenderer()
   const BlockComponent = () =>
     state.blocks[props.content.type] as (props: GetPropsFromNode<Node>) => JSX.Element
-
-  createEffect(() => {
-    if (!BlockComponent()) {
-      if (!state.missingBlockTypes.includes(props.content.type)) {
-        console.warn(
-          `[@strapi/block-solid-renderer] No component for block type "${props.content.type}"`
-        )
-        state.missingBlockTypes.push(props.content.type)
-      }
-      return null
+  onSettled(() => {
+    const type = props.content.type
+    if (!BlockComponent() && !state.missingBlockTypes.includes(type)) {
+      console.warn(
+        `[@strapi/block-solid-renderer] No component for block type "${type}"`
+      )
+      actions.markBlockTypeMissing(type)
     }
   })
 
