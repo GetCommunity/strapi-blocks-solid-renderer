@@ -1,17 +1,17 @@
 name: Build, Version & Publish
 
-permissions:
-  contents: write
-
 on:
   push:
-    branches: [production]
+    branches:
+      - production
+
+permissions:
+  contents: write
+  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -24,29 +24,30 @@ jobs:
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
-          scope: "@joeygrable94"
+          scope: "@getcommunity"
+          package-manager-cache: false
 
       - name: Install PNPM
-        run: npm install -g pnpm
+        run: npm install -g pnpm@11
 
       - name: Install & Build
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
           pnpm run build
 
-      - name: Bump patch version
+      - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git stash --include-untracked
-          npm version patch -m "chore(release): v%s"
-          git stash pop || true
 
-      - name: Push version commit & tag
-        uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: production
+      - name: Bump patch version
+        run: 'npm version patch -m "chore(release): v%sz"'
+
+      - name: Build
+        run: pnpm run build
 
       - name: Publish to npm
         run: npm publish --access public
+
+      - name: Push version commit & tag
+        run: git push origin production --follow-tags

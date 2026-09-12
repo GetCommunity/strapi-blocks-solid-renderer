@@ -6,8 +6,7 @@
     "url": "https://github.com/GetCommunity/strapi-blocks-solid-renderer/issues"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/GetCommunity/strapi-blocks-solid-renderer.git"
+    "url": "https://github.com/GetCommunity/srapi-blocks-solid-renderer"
   },
   "license": "SEE LICENSE IN LICENSE",
   "author": {
@@ -37,26 +36,26 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.6",
+    "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
-    "@getcommunity/config-prettier": "^0.1.6",
-    "@getcommunity/config-typescript": "^0.0.25",
+    "@getcommunity/config-prettier": "^0.1.7",
+    "@getcommunity/config-typescript": "^0.0.26",
     "@solidjs/testing-library": "^0.8.10",
-    "@testing-library/jest-dom": "^7.0.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^26.1.1",
-    "@typescript-eslint/eslint-plugin": "^8.65.0",
-    "@typescript-eslint/parser": "^8.65.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/node": "^26.5.1",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
     "esbuild-plugin-solid": "^0.6.0",
     "eslint-plugin-solid": "^0.14.5",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "solid-js": "^1.9.14",
+    "solid-js": "^1.9.15",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vite": "^8.1.5",
-    "vite-plugin-solid": "^2.11.13",
+    "vite-plugin-solid": "^2.11.14",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
