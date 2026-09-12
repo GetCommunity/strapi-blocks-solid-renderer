@@ -15,11 +15,11 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1
       '@getcommunity/config-prettier':
-        specifier: ^0.1.7
-        version: 0.1.7(typescript@6.0.3)
+        specifier: ^0.1.8
+        version: 0.1.8(typescript@6.0.3)
       '@getcommunity/config-typescript':
-        specifier: ^0.0.26
-        version: 0.0.26(@types/node@26.5.1)(typescript@6.0.3)
+        specifier: ^0.0.27
+        version: 0.0.27(@types/node@26.5.1)(typescript@6.0.3)
       '@solidjs/testing-library':
         specifier: ^0.8.10
         version: 0.8.10(solid-js@1.9.15)
@@ -466,11 +466,11 @@ packages:
       '@noble/hashes':
         optional: true
 
-  '@getcommunity/config-prettier@0.1.7':
-    resolution: {integrity: sha512-SvaO7gKffMRn8I3heggBnffNKIYFZT73Hg7VM0uojsMrAwe1WUetO1dWhPQpuEh0CIZ4CGGBTlG4mi2mOMjLgw==}
+  '@getcommunity/config-prettier@0.1.8':
+    resolution: {integrity: sha512-nVg8vM3SMJC0+nfyot54Y7zKy8o68k5oULooekoLWq7oEw8m173uGpVAI7KHa2YoYVIowUN3cBQV//jXoQdU7g==}
 
-  '@getcommunity/config-typescript@0.0.26':
-    resolution: {integrity: sha512-+N/uOW9/DEzWQtRqcp4pQOnbA4ez8BbSPTs45T4rgrE10unPP9/JXxAA+prfXiczi4JuvC4JAMf0IO8559QcSQ==}
+  '@getcommunity/config-typescript@0.0.27':
+    resolution: {integrity: sha512-SbQWHvLWYTvb1Gif6KaEVIvLerirA/xPX6ymCFXBFc+4fUlHiY++euaEgG/0MZrFyMODKvPJiOEvjah99LQaNA==}
     peerDependencies:
       '@types/node': '>=24 <=26'
       typescript: '>=5 <6'
@@ -2194,7 +2194,7 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@getcommunity/config-prettier@0.1.7(typescript@6.0.3)':
+  '@getcommunity/config-prettier@0.1.8(typescript@6.0.3)':
     dependencies:
       prettier: 3.9.6
       prettier-plugin-organize-imports: 4.3.0(prettier@3.9.6)(typescript@6.0.3)
@@ -2218,7 +2218,7 @@ snapshots:
       - typescript
       - vue-tsc
 
-  '@getcommunity/config-typescript@0.0.26(@types/node@26.5.1)(typescript@6.0.3)':
+  '@getcommunity/config-typescript@0.0.27(@types/node@26.5.1)(typescript@6.0.3)':
     dependencies:
       '@types/node': 26.5.1
       typescript: 6.0.3
