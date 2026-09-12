@@ -21,7 +21,7 @@ importers:
         specifier: ^0.1.8
         version: 0.1.8(typescript@6.0.3)
       '@getcommunity/config-typescript':
-        specifier: ^0.0.27-next.1
+        specifier: ^0.0.27-next.2
         version: 0.0.27(@types/node@26.5.1)(typescript@6.0.3)
       '@solidjs/testing-library':
         specifier: 1.0.0-beta.3
