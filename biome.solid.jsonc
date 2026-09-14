@@ -1,0 +1,21 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+  "linter": {
+    "domains": {
+      "solid": "recommended"
+    },
+    "rules": {
+      "correctness": {
+        "noSolidDestructuredProps": "error"
+      },
+      "performance": {
+        "useSolidForComponent": "error"
+      },
+      "suspicious": {
+        // Solid's <For> keys by reference, not by index, so React's index-key
+        // foot-gun this rule guards against does not apply here.
+        "noArrayIndexKey": "off"
+      }
+    }
+  }
+}

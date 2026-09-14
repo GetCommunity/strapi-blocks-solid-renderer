@@ -20,18 +20,16 @@ type TextInlineProps = Omit<TextInlineNode, "type">
 function replaceLineBreaks(text: string) {
   const parts = text.split(/\r?\n|\r/g)
   return (
-    <>
-      <For each={parts}>
-        {(part, idx) => (
-          <>
-            <Show when={idx() > 0}>
-              <br />
-            </Show>
-            {part}
-          </>
-        )}
-      </For>
-    </>
+    <For each={parts}>
+      {(part, idx) => (
+        <>
+          <Show when={idx() > 0}>
+            <br />
+          </Show>
+          {part}
+        </>
+      )}
+    </For>
   )
 }
 
@@ -42,7 +40,7 @@ export function Text(props: TextInlineProps) {
 
   const modifierNames = () =>
     Object.keys(props).filter(
-      (k): k is Modifier => k !== "text" && !!props[k as Modifier]
+      (k): k is Modifier => k !== "text" && !!props[k as Modifier],
     )
 
   // Use a Set to track warnings without mutating Solid Store directly
@@ -55,7 +53,7 @@ export function Text(props: TextInlineProps) {
         if (!ModifierComponent()) {
           if (!seenWarnings.has(modifierName)) {
             console.warn(
-              `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`
+              `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`,
             )
             seenWarnings.add(modifierName)
           }

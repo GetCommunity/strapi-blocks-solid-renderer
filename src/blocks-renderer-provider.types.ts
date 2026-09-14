@@ -30,7 +30,8 @@ export interface ListItemInlineNode {
 
 export type DefaultInlineNode = TextInlineNode | LinkInlineNode
 export type NonTextInlineNode =
-  Exclude<DefaultInlineNode, TextInlineNode> | ListItemInlineNode
+  | Exclude<DefaultInlineNode, TextInlineNode>
+  | ListItemInlineNode
 
 export interface ParagraphBlockNode {
   type: "paragraph"
@@ -123,10 +124,10 @@ export interface BlocksRendererState {
   missingModifierTypes: string[]
 }
 
-// eslint-disable-next-line
-export interface BlocksRendererActions {}
+// Reserved for future actions; intentionally empty for now.
+export type BlocksRendererActions = Record<string, never>
 
 export type BlocksRendererContextState = [
   state: BlocksRendererState,
-  actions: BlocksRendererActions
+  actions: BlocksRendererActions,
 ]
