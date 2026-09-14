@@ -4,8 +4,6 @@ allowBuilds:
   esbuild: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - "@getcommunity/config-prettier"
-  - "@getcommunity/config-typescript"
   - "@solidjs/vite-plugin"
 overrides:
   # esbuild-plugin-solid still depends on babel-preset-solid@^1.x; force the
