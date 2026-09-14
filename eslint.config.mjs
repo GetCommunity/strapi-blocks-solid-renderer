@@ -3,6 +3,7 @@ import js from "@eslint/js"
 import tsParser from "@typescript-eslint/parser"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import solid from "eslint-plugin-solid/configs/recommended";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -20,8 +21,8 @@ export default [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:solid/recommended"
   ),
+  solid,
   {
     plugins: {},
     settings: {},
