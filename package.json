@@ -38,8 +38,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
-    "@getcommunity/config-prettier": "^0.1.8",
-    "@getcommunity/config-typescript": "^0.0.27",
     "@solidjs/testing-library": "^0.8.10",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/user-event": "^14.6.7",
@@ -47,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^8.70.0",
     "@typescript-eslint/parser": "^8.70.0",
     "esbuild-plugin-solid": "^0.6.0",
+    "eslint": "^10.10.0",
     "eslint-plugin-solid": "^0.14.5",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.6",
