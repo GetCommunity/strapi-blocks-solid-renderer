@@ -1,6 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@getcommunity/config-typescript/solidjs-lib.json",
+  "display": "SolidJs Library TSConfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
+    "noEmit": true,
+    "ignoreDeprecations": "6.0",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "newLine": "LF",
+    "allowJs": false,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "types": [
+      "@testing-library/jest-dom/vitest",
+      "vite/client",
+      "node",
+      "vitest/globals"
+    ]
+  },
   "include": [
     "./tests/**/*.ts",
     "./tests/**/*.tsx",
@@ -11,19 +37,18 @@
     "vitest.setup.ts",
     "tsup.config.ts",
     "eslint.config.mjs",
-    ".prettierrc.mjs"
+    "prettier.config.js"
   ],
-  "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist",
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "target": "ES2022",
-    "noEmit": true,
-    "ignoreDeprecations": "6.0",
-    "jsx": "preserve",
-    "jsxImportSource": "@solidjs/web"
-  },
-  "exclude": ["dist", "node_modules", ".vscode"]
+  "exclude": [
+    "node_modules/",
+    "build/",
+    "dist/",
+    "scripts/",
+    "public/",
+    ".wrangler/",
+    ".vinxi/",
+    ".vercel/",
+    ".tmp/",
+    ".vscode"
+  ]
 }
