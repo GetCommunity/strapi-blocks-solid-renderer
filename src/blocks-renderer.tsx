@@ -2,7 +2,7 @@ import { For } from "solid-js"
 import { Block } from "./block"
 import type {
   BlocksContent,
-  BlocksRendererProviderProps
+  BlocksRendererProviderProps,
 } from "./blocks-renderer-provider.types"
 import { BlocksRendererProvider } from "./blocks-renderer-provider.ui"
 

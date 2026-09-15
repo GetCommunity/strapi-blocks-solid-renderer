@@ -7,7 +7,7 @@ import {
   merge,
   Switch,
   untrack,
-  useContext
+  useContext,
 } from "solid-js"
 import type {
   BlocksComponents,
@@ -15,7 +15,7 @@ import type {
   BlocksRendererContextState,
   BlocksRendererProviderProps,
   BlocksRendererState,
-  ModifiersComponents
+  ModifiersComponents,
 } from "./blocks-renderer-provider.types"
 
 // ------------------------------------
@@ -34,9 +34,9 @@ const defaultComponents: BlocksRendererState = {
     heading: (props) => {
       const hProps = merge(
         {
-          level: 1
+          level: 1,
         },
-        props
+        props,
       )
       const Tag = () => `h${hProps.level}` as keyof JSX.IntrinsicElements
       return <Dynamic component={Tag()}>{hProps.children}</Dynamic>
@@ -59,17 +59,17 @@ const defaultComponents: BlocksRendererState = {
         alt={props.image.alternativeText || undefined}
         loading="lazy"
       />
-    )
+    ),
   } as BlocksComponents,
   modifiers: {
     bold: (props) => <strong>{props.children}</strong>,
     italic: (props) => <em>{props.children}</em>,
     underline: (props) => <u>{props.children}</u>,
     strikethrough: (props) => <del>{props.children}</del>,
-    code: (props) => <code>{props.children}</code>
+    code: (props) => <code>{props.children}</code>,
   } as ModifiersComponents,
   missingBlockTypes: [],
-  missingModifierTypes: []
+  missingModifierTypes: [],
 }
 
 // ------------------------------------
@@ -86,7 +86,7 @@ export function BlocksRendererProvider(props: BlocksRendererProviderProps) {
     blocks: untrack(() => ({ ...defaultComponents.blocks, ...props.blocks })),
     modifiers: untrack(() => ({ ...defaultComponents.modifiers, ...props.modifiers })),
     missingBlockTypes: [],
-    missingModifierTypes: []
+    missingModifierTypes: [],
   })
 
   const actions: BlocksRendererActions = {
@@ -99,7 +99,7 @@ export function BlocksRendererProvider(props: BlocksRendererProviderProps) {
       setState((s) => {
         if (!s.missingModifierTypes.includes(type)) s.missingModifierTypes.push(type)
       })
-    }
+    },
   }
 
   const contextValue: BlocksRendererContextState = [state, actions]

@@ -13,18 +13,18 @@ const content: BlocksContent[] = [
       {
         type: "link",
         url: "https://test.com",
-        children: [{ type: "text", text: "A cool website" }]
-      }
-    ]
+        children: [{ type: "text", text: "A cool website" }],
+      },
+    ],
   },
   {
     type: "paragraph",
     children: [
       { type: "text", text: "A simple paragraph" },
       { type: "text", text: "with bold text", bold: true },
-      { type: "text", text: " and bold underlines", bold: true, underline: true }
-    ]
-  }
+      { type: "text", text: " and bold underlines", bold: true, underline: true },
+    ],
+  },
 ]
 
 describe("BlocksRenderer", () => {
@@ -33,7 +33,7 @@ describe("BlocksRenderer", () => {
 
     expect(screen.getByText("A simple paragraph")).toBeInstanceOf(HTMLParagraphElement)
     expect(screen.getByRole("heading", { name: /cool website/i })).toBeInstanceOf(
-      HTMLHeadingElement
+      HTMLHeadingElement,
     )
   })
 
@@ -50,29 +50,29 @@ describe("BlocksRenderer", () => {
                 children: [
                   {
                     text: "Unordered List Item 1",
-                    type: "text"
-                  }
-                ]
+                    type: "text",
+                  },
+                ],
               },
               {
                 type: "list-item",
                 children: [
                   {
                     text: "Unordered List Item 2",
-                    type: "text"
-                  }
-                ]
+                    type: "text",
+                  },
+                ],
               },
               {
                 type: "list-item",
                 children: [
                   {
                     text: "Unordered List Item 3",
-                    type: "text"
-                  }
-                ]
-              }
-            ]
+                    type: "text",
+                  },
+                ],
+              },
+            ],
           },
           {
             type: "list",
@@ -83,30 +83,30 @@ describe("BlocksRenderer", () => {
                 children: [
                   {
                     text: "Ordered List Item 1",
-                    type: "text"
-                  }
-                ]
+                    type: "text",
+                  },
+                ],
               },
               {
                 type: "list-item",
                 children: [
                   {
                     text: "Ordered List Item 2",
-                    type: "text"
-                  }
-                ]
+                    type: "text",
+                  },
+                ],
               },
               {
                 type: "list-item",
                 children: [
                   {
                     text: "Ordered List Item 3",
-                    type: "text"
-                  }
-                ]
-              }
-            ]
-          }
+                    type: "text",
+                  },
+                ],
+              },
+            ],
+          },
         ]}
       />
     ))
@@ -128,17 +128,17 @@ describe("BlocksRenderer", () => {
           paragraph: (props) => (
             <div data-testid="customParagraph">{props.children}</div>
           ),
-          link: (props) => <button>{props.children}</button>
+          link: (props) => <button type="button">{props.children}</button>,
         }}
         modifiers={{
-          bold: (props) => <b data-testid="customBold">{props.children}</b>
+          bold: (props) => <b data-testid="customBold">{props.children}</b>,
         }}
       />
     ))
 
     expect(screen.getByTestId("customParagraph")).toBeInstanceOf(HTMLDivElement)
     expect(screen.getByRole("button", { name: /cool website/i })).toBeInstanceOf(
-      HTMLButtonElement
+      HTMLButtonElement,
     )
 
     const boldTags = screen.getAllByTestId("customBold")
@@ -156,7 +156,7 @@ describe("BlocksRenderer", () => {
         content={[
           { type: "paragraph", children: [{ type: "text", text: "Before" }] },
           { type: "paragraph", children: [{ type: "text", text: "" }] },
-          { type: "paragraph", children: [{ type: "text", text: "After" }] }
+          { type: "paragraph", children: [{ type: "text", text: "After" }] },
         ]}
       />
     ))
@@ -172,8 +172,8 @@ describe("BlocksRenderer", () => {
         content={[
           {
             type: "paragraph",
-            children: [{ type: "text", text: "First line\nSecond line" }]
-          }
+            children: [{ type: "text", text: "First line\nSecond line" }],
+          },
         ]}
       />
     ))
@@ -191,15 +191,15 @@ describe("BlocksRenderer", () => {
           {
             // @ts-expect-error - type invalid
             type: "unknown",
-            children: [{ type: "text", text: "Oops" }]
-          }
+            children: [{ type: "text", text: "Oops" }],
+          },
         ]}
       />
     ))
 
     expect(screen.queryByText("Oops")).not.toBeInstanceOf(HTMLUnknownElement)
     expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining('No component for block type "unknown"')
+      expect.stringContaining('No component for block type "unknown"'),
     )
 
     warnSpy.mockRestore()
@@ -217,10 +217,10 @@ describe("BlocksRenderer", () => {
                 text: "Styled",
                 bold: true,
                 italic: true,
-                underline: true
-              }
-            ]
-          }
+                underline: true,
+              },
+            ],
+          },
         ]}
       />
     ))

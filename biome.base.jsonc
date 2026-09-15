@@ -1,0 +1,82 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      // Generated/ambient type declarations are never hand-edited.
+      "!*.d.ts",
+      // TanStack Router's generated route tree is codegen, not source.
+      "!**/routeTree.gen.ts",
+      // Static SVG assets (logos, icons) aren't authored JSX — Biome's a11y
+      // rules for inline <svg> markup don't apply to a standalone asset file.
+      "!**/*.svg",
+      // Build and test output should never be scanned, across any project shape.
+      "!!**/.output",
+      "!!**/.vinxi",
+      "!!**/build",
+      "!!**/dist",
+      "!!**/coverage",
+      "!!**/test-results",
+      "!!**/playwright-report",
+      "!!**/blob-report"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 88
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        // Removing unused imports is normally an unsafe fix because associated comments may be removed.
+        // Promote only this fix so `biome check --write` and VS Code fix-all apply it automatically.
+        "noUnusedImports": {
+          "level": "error",
+          "fix": "safe"
+        }
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  }
+}

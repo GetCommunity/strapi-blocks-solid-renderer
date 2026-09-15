@@ -20,18 +20,16 @@ type TextInlineProps = Omit<TextInlineNode, "type">
 function replaceLineBreaks(text: string) {
   const parts = text.split(/\r?\n|\r/g)
   return (
-    <>
-      <For each={parts}>
-        {(part, idx) => (
-          <>
-            <Show when={idx() > 0}>
-              <br />
-            </Show>
-            {part}
-          </>
-        )}
-      </For>
-    </>
+    <For each={parts}>
+      {(part, idx) => (
+        <>
+          <Show when={idx() > 0}>
+            <br />
+          </Show>
+          {part}
+        </>
+      )}
+    </For>
   )
 }
 
@@ -40,8 +38,8 @@ export function Text(props: TextInlineProps) {
 
   const modifierNames = createMemo(() =>
     Object.keys(props).filter(
-      (k): k is Modifier => k !== "text" && !!props[k as Modifier]
-    )
+      (k): k is Modifier => k !== "text" && !!props[k as Modifier],
+    ),
   )
 
   const content = createMemo(() =>
@@ -50,14 +48,14 @@ export function Text(props: TextInlineProps) {
       if (!ModifierComponent()) {
         if (!state.missingModifierTypes.includes(modifierName)) {
           console.warn(
-            `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`
+            `[@strapi/block-solid-renderer] No component for modifier "${modifierName}"`,
           )
           actions.markModifierTypeMissing(modifierName)
         }
         return children
       }
       return <Dynamic component={ModifierComponent()}>{children}</Dynamic>
-    }, replaceLineBreaks(props.text))
+    }, replaceLineBreaks(props.text)),
   )
 
   return <>{content()}</>

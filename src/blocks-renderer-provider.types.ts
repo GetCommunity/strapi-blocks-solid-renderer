@@ -30,7 +30,8 @@ export interface ListItemInlineNode {
 
 export type DefaultInlineNode = TextInlineNode | LinkInlineNode
 export type NonTextInlineNode =
-  Exclude<DefaultInlineNode, TextInlineNode> | ListItemInlineNode
+  | Exclude<DefaultInlineNode, TextInlineNode>
+  | ListItemInlineNode
 
 export interface ParagraphBlockNode {
   type: "paragraph"
@@ -130,5 +131,5 @@ export interface BlocksRendererActions {
 
 export type BlocksRendererContextState = [
   state: BlocksRendererState,
-  actions: BlocksRendererActions
+  actions: BlocksRendererActions,
 ]

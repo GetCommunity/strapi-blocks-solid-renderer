@@ -1,5 +1,5 @@
 import { solidPlugin } from "esbuild-plugin-solid"
-import { type Options, defineConfig } from "tsup"
+import { defineConfig, type Options } from "tsup"
 
 function generateConfig(jsx: boolean): Options {
   return {
@@ -24,10 +24,7 @@ function generateConfig(jsx: boolean): Options {
     outExtension() {
       return jsx ? { js: ".jsx" } : {}
     },
-    // NOTE: this must be `esbuildPlugins`, not `plugins` (tsup's own plugin
-    // hook system) — the latter is silently ignored, which previously left
-    // the "dom" build un-transformed by Solid's babel preset entirely.
-    esbuildPlugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : []
+    esbuildPlugins: !jsx ? [solidPlugin({ solid: { generate: "dom" } })] : [],
   }
 }
 
