@@ -28,14 +28,13 @@
     ]
   },
   "include": [
-    "./tests/**/*.ts",
-    "./tests/**/*.tsx",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
+    "./tests",
+    "./src",
+    "./dev",
     "vite.config.ts",
     "vitest.config.ts",
     "vitest.setup.ts",
-    "tsup.config.ts",
+    "tsdown.config.ts",
     "eslint.config.mjs",
     "prettier.config.js"
   ],
