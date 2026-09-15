@@ -29,6 +29,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite serve dev --host",
+    "dev:build": "vite build dev",
     "clean": "rm -rf .turbo node_modules dist",
     "test": "vitest --run",
     "build": "tsdown",
