@@ -1,7 +1,5 @@
-import { createContext, Match, mergeProps, Switch, useContext } from "solid-js"
-import type { JSX } from "solid-js/jsx-runtime"
-import { createStore } from "solid-js/store"
-import { Dynamic } from "solid-js/web"
+import { dynamic, type JSX } from "@solidjs/web"
+import { createContext, createMemo, Match, merge, Switch, useContext } from "solid-js"
 import type {
   BlocksComponents,
   BlocksRendererActions,
@@ -25,14 +23,14 @@ const defaultComponents: BlocksRendererState = {
       </pre>
     ),
     heading: (props) => {
-      const hProps = mergeProps(
+      const hProps = merge(
         {
           level: 1,
         },
         props,
       )
-      const Tag = () => `h${hProps.level}` as keyof JSX.IntrinsicElements
-      return <Dynamic component={Tag()}>{hProps.children}</Dynamic>
+      const Tag = dynamic(() => `h${hProps.level}` as keyof JSX.IntrinsicElements)
+      return <Tag {...props}>{hProps.children}</Tag>
     },
     link: (props) => <a href={props.url}>{props.children}</a>,
     list: (props) => (
@@ -61,8 +59,6 @@ const defaultComponents: BlocksRendererState = {
     strikethrough: (props) => <del>{props.children}</del>,
     code: (props) => <code>{props.children}</code>,
   } as ModifiersComponents,
-  missingBlockTypes: [],
-  missingModifierTypes: [],
 }
 
 // ------------------------------------
@@ -72,26 +68,36 @@ const defaultComponents: BlocksRendererState = {
 const BlocksRendererContext = createContext<BlocksRendererContextState>()
 
 export function BlocksRendererProvider(props: BlocksRendererProviderProps) {
-  const blocks = () => ({ ...defaultComponents.blocks, ...props.blocks })
-  const modifiers = () => ({ ...defaultComponents.modifiers, ...props.modifiers })
+  const blocks = createMemo(() => ({ ...defaultComponents.blocks, ...props.blocks }))
+  const modifiers = createMemo(() => ({
+    ...defaultComponents.modifiers,
+    ...props.modifiers,
+  }))
 
-  const [state] = createStore<BlocksRendererState>({
-    // eslint-disable-next-line solid/reactivity
-    blocks: blocks(),
-    // eslint-disable-next-line solid/reactivity
-    modifiers: modifiers(),
-    missingBlockTypes: [],
-    missingModifierTypes: [],
-  })
+  const state: BlocksRendererState = {
+    get blocks() {
+      return blocks()
+    },
+    get modifiers() {
+      return modifiers()
+    },
+  }
 
-  const actions: BlocksRendererActions = {}
+  // Plain Set: warning bookkeeping must not be reactive state.
+  const reported = new Set<string>()
+  const actions: BlocksRendererActions = {
+    reportMissing(kind, name) {
+      const key = `${kind}:${name}`
+      if (reported.has(key)) return
+      reported.add(key)
+      console.warn(`[@strapi/block-solid-renderer] No component for ${kind} "${name}"`)
+    },
+  }
 
   const contextValue: BlocksRendererContextState = [state, actions]
 
   return (
-    <BlocksRendererContext.Provider value={contextValue}>
-      {props.children}
-    </BlocksRendererContext.Provider>
+    <BlocksRendererContext value={contextValue}>{props.children}</BlocksRendererContext>
   )
 }
 

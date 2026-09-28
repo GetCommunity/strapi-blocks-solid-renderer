@@ -1,5 +1,5 @@
+import type { JSX } from "@solidjs/web"
 import type { Component, ParentProps } from "solid-js"
-import type { JSX } from "solid-js/jsx-runtime"
 
 // ------------------------------------
 // Modifier and Block Definitions
@@ -118,14 +118,13 @@ export interface BlocksRendererProviderProps extends ParentProps {
 }
 
 export interface BlocksRendererState {
-  blocks: BlocksComponents
-  modifiers: ModifiersComponents
-  missingBlockTypes: string[]
-  missingModifierTypes: string[]
+  readonly blocks: BlocksComponents
+  readonly modifiers: ModifiersComponents
 }
 
-// Reserved for future actions; intentionally empty for now.
-export type BlocksRendererActions = Record<string, never>
+export interface BlocksRendererActions {
+  reportMissing: (kind: "block type" | "modifier", name: string) => void
+}
 
 export type BlocksRendererContextState = [
   state: BlocksRendererState,

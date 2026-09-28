@@ -1,9 +1,6 @@
-import { createEffect, For, type JSX, Match, Switch } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import type {
-  BlocksContentNode,
-  GetPropsFromNode,
-} from "./blocks-renderer-provider.types"
+import { dynamic } from "@solidjs/web"
+import { createEffect, For, Match, Switch } from "solid-js"
+import type { BlocksContentNode } from "./blocks-renderer-provider.types"
 import { useBlocksRenderer } from "./blocks-renderer-provider.ui"
 import { Text } from "./text"
 
@@ -37,29 +34,22 @@ function augmentProps(content: BlocksContentNode) {
 }
 
 export function Block(props: BlockProps) {
-  const [state] = useBlocksRenderer()
-  const BlockComponent = () =>
-    state.blocks[props.content.type] as (props: GetPropsFromNode<Node>) => JSX.Element
-
-  createEffect(() => {
-    if (!BlockComponent()) {
-      if (!state.missingBlockTypes.includes(props.content.type)) {
-        console.warn(
-          `[@strapi/block-solid-renderer] No component for block type "${props.content.type}"`,
-        )
-        state.missingBlockTypes.push(props.content.type)
-      }
-      return null
-    }
-  })
-
+  const [state, { reportMissing }] = useBlocksRenderer()
+  const BlockComponent = dynamic(() => state.blocks[props.content.type])
   const augmentedProps = () => augmentProps(props.content)
+
+  createEffect(
+    () => (state.blocks[props.content.type] ? undefined : props.content.type),
+    (missingType) => {
+      if (missingType) reportMissing("block type", missingType)
+    },
+  )
 
   return (
     <Switch>
       <Match when={voidTypes.includes(props.content.type)}>
-        {/* biome-ignore lint/suspicious/noExplicitAny: void block types don't share a common props shape. */}
-        <Dynamic component={BlockComponent()} {...(props.content as any)} />
+        {/* biome-ignore lint/suspicious/noExplicitAny: allow any */}
+        <BlockComponent {...(props.content as any)} />
       </Match>
       <Match
         when={
@@ -71,8 +61,8 @@ export function Block(props: BlockProps) {
       >
         <br />
       </Match>
-      <Match when={BlockComponent()}>
-        <Dynamic component={BlockComponent()} {...augmentedProps()}>
+      <Match when={state.blocks[props.content.type]}>
+        <BlockComponent {...augmentedProps()}>
           <For each={props.content.children}>
             {(child) => {
               if (child.type === "text") {
@@ -82,7 +72,7 @@ export function Block(props: BlockProps) {
               return <Block content={child as BlocksContentNode} />
             }}
           </For>
-        </Dynamic>
+        </BlockComponent>
       </Match>
     </Switch>
   )
