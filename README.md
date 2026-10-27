@@ -62,15 +62,15 @@ You can provide your own SolidJS components to the renderer, both for blocks and
 To provide your own components, pass an object to the `blocks` and `modifiers` props of the renderer. For each type, the value should be a SolidJS component that will receive the props of the block or modifier. Make sure to always render the children, so that the nested blocks and modifiers are rendered as well.
 
 ```jsx
-import { BlocksRenderer } from '@getcommunity/strapi-blocks-solid-renderer';
+import { BlocksRenderer } from "@getcommunity/strapi-blocks-solid-renderer"
 
 // Content should come from your Strapi API
 const content = [
   {
-    type: 'paragraph',
-    children: [{ type: 'text', text: 'A simple paragraph' }],
+    type: "paragraph",
+    children: [{ type: "text", text: "A simple paragraph" }],
   },
-];
+]
 
 const App = () => {
   return (
@@ -78,7 +78,9 @@ const App = () => {
       content={content}
       blocks={{
         // You can use the default components to set class names...
-        paragraph: ({ children }) => <p className="text-neutral900 max-w-prose">{children}</p>,
+        paragraph: ({ children }) => (
+          <p className="text-neutral900 max-w-prose">{children}</p>
+        ),
         // ...or point to a design system
         heading: ({ children, level }) => {
           switch (level) {
@@ -106,6 +108,6 @@ const App = () => {
         italic: ({ children }) => <span className="italic">{children}</span>,
       }}
     />
-  );
-};
+  )
+}
 ```
