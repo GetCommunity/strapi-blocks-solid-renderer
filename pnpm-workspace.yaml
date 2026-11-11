@@ -4,6 +4,6 @@ allowBuilds:
   esbuild: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - '@solidjs/signals'
-  - '@solidjs/web'
+  - "@solidjs/signals"
+  - "@solidjs/web"
   - solid-js

@@ -4,7 +4,6 @@ import { defineConfig } from "vitest/config"
 export default defineConfig({
   plugins: [
     solidPlugin({
-      hot: false,
       solid: {
         generate: "dom",
         omitNestedClosingTags: false,
